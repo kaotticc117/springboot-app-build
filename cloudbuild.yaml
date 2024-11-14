@@ -1,0 +1,8 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/dauntless-tube-441623-h6/springbopot-app', '.']
+images:
+  - 'gcr.io/dauntless-tube-441623-h6/springbopot-app'
+
+options:
+  defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
