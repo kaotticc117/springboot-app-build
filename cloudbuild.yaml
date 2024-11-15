@@ -19,10 +19,10 @@
           --build-artifacts='{"images":[{"image":"gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}"}]}' \
           --annotations=commitSha=$COMMIT_SHA \
           --description="Triggered by Cloud Build"
+  options:
+    defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
 
 # Substitutions for dynamic values
 substitutions:
   _REGION: us-west2
 
-  options:
-    defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
