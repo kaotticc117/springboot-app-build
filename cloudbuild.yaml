@@ -15,7 +15,7 @@
       - |
         gcloud deploy releases create springboot-$BUILD_ID \
           --delivery-pipeline=my-delivery-pipeline \
-          --region=REGION \
+          --region=us-west2 \
           --build-artifacts='{"images":[{"image":"gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}"}]}' \
           --annotations=commitSha=$COMMIT_SHA \
           --description="Triggered by Cloud Build"
