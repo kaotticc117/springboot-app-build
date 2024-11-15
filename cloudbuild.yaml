@@ -1,8 +1,25 @@
-steps:
+  steps:
+  # Step 1: Build Docker image (optional)
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}', '.']
-images:
-  - 'gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}'
 
-options:
-  defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
+  # Step 2: Push Docker image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}']
+
+  # Step 3: Create Google Cloud Deploy release
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        gcloud deploy releases create my-release-$BUILD_ID \
+          --delivery-pipeline=my-delivery-pipeline \
+          --region=REGION \
+          --build-artifacts='{"images":[{"image":"gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}"}]}' \
+          --annotations=commitSha=$COMMIT_SHA \
+          --description="Triggered by Cloud Build"
+
+# Substitutions for dynamic values
+substitutions:
+  _REGION: us-west2
