@@ -1,5 +1,5 @@
-  steps:
-  # Step 1: Build Docker image (optional)
+steps:
+  # Step 1: Build Docker image
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}', '.']
 
@@ -13,16 +13,16 @@
     args:
       - '-c'
       - |
+        echo '{"images":[{"image":"gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}"}]}' > build_artifacts.json
         gcloud deploy releases create springboot-$BUILD_ID \
           --delivery-pipeline=springboot-delivery-pipeline \
-          --region=us-west2 \
-          --build-artifacts='{"images":[{"image":"gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}"}]}' \
-          --annotations=commitSha=$COMMIT_SHA \
+          --region=${_REGION} \
+          --build-artifacts=build_artifacts.json \
+          --annotations=commitSha=${COMMIT_SHA} \
           --description="Triggered by Cloud Build"
-  options:
-    defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
 
+options:
+  defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
 
-# Substitutions for dynamic values
 substitutions:
   _REGION: us-west2
