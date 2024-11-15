@@ -15,6 +15,7 @@ steps:
       - |
         echo "Deploying image: gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}"
         echo '{"images":[{"image":"gcr.io/dauntless-tube-441623-h6/springboot-app:'${SHORT_SHA}'"}]}' > build-artifacts.json
+        cat build-artifacts.json
         gcloud deploy releases create springboot-${BUILD_ID} \
           --delivery-pipeline=springboot-delivery-pipeline \
           --region=${_REGION} \
