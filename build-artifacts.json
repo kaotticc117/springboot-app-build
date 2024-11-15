@@ -1,7 +1,7 @@
 {
   "images": [
     {
-      "image": "gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}"
+      "image": "gcr.io/dauntless-tube-441623-h6/springboot-app:'${SHORT_SHA}'"
     }
   ]
 }
