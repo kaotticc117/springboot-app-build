@@ -26,3 +26,5 @@ options:
 
 substitutions:
   _REGION: us-west2
+  SHORT_SHA: "$(git rev-parse --short HEAD)"  # Ensure that SHORT_SHA is correctly set
+  COMMIT_SHA: "$(git rev-parse HEAD)"  # Full commit hash
