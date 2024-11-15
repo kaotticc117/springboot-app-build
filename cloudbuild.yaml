@@ -1,11 +1,11 @@
 steps:
   # Step 1: Build Docker image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/dauntless-tube-441623-h6/springboot-app:${_SHORTSHA}', '.']
+    args: ['build', '-t', 'gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}', '.']
 
   # Step 2: Push Docker image to Container Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/dauntless-tube-441623-h6/springboot-app:${_SHORTSHA}']
+    args: ['push', 'gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}']
 
   # Step 3: Create Google Cloud Deploy release
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -13,12 +13,12 @@ steps:
     args:
       - '-c'
       - |
-        echo '{"images":[{"image":"gcr.io/dauntless-tube-441623-h6/springboot-app:${_SHORTSHA}"}]}' > build_artifacts.json
+        echo '{"images":[{"image":"gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}"}]}' > build_artifacts.json
         gcloud deploy releases create springboot-$BUILD_ID \
           --delivery-pipeline=springboot-delivery-pipeline \
           --region=${_REGION} \
           --build-artifacts=build_artifacts.json \
-          --annotations=commitSha=${_COMMITSHA} \
+          --annotations=commitSha=${COMMIT_SHA} \
           --description="Triggered by Cloud Build"
 
 options:
@@ -26,5 +26,3 @@ options:
 
 substitutions:
   _REGION: us-west2
-  _SHORTSHA: "$(git rev-parse --short HEAD)"  # Ensure that SHORT_SHA is correctly set
-  _COMMITSHA: "$(git rev-parse HEAD)"  # Full commit hash
