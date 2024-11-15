@@ -13,7 +13,7 @@
     args:
       - '-c'
       - |
-        gcloud deploy releases create my-release-$BUILD_ID \
+        gcloud deploy releases createspringboot-$BUILD_ID \
           --delivery-pipeline=my-delivery-pipeline \
           --region=REGION \
           --build-artifacts='{"images":[{"image":"gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}"}]}' \
