@@ -23,4 +23,6 @@
     defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
 
 
-
+# Substitutions for dynamic values
+substitutions:
+  _REGION: us-west2
