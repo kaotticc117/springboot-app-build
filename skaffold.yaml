@@ -1,0 +1,15 @@
+apiVersion: skaffold/v2beta26
+kind: Config
+metadata:
+  name: my-app
+build:
+  artifacts:
+    - image: gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}  # Replace with your image
+deploy:
+  kubectl:
+    manifests:
+      - deploy/deployment.yaml
+      - deploy/service.yaml
+      - deploy/ingress.yaml
+    flags:
+      apply: ["--prune=false"]  # Optional: Prevent pruning unrelated resources
