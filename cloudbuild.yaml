@@ -1,5 +1,5 @@
 steps:
-  # Step 1: Build Docker image
+  # Step 1: Build Docker image (use predefined ${SHORT_SHA} variable)
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}', '.']
 
@@ -13,11 +13,11 @@ steps:
     args:
       - '-c'
       - |
-        echo '{"images":[{"image":"gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}"}]}' > build_artifacts.json
-        gcloud deploy releases create springboot-$BUILD_ID \
+        echo "Deploying image: gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}"
+        gcloud deploy releases create springboot-${BUILD_ID} \
           --delivery-pipeline=springboot-delivery-pipeline \
           --region=${_REGION} \
-          --build-artifacts=build_artifacts.json \
+          --build-artifacts='{"images":[{"image":"gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}"}]}' \
           --annotations=commitSha=${COMMIT_SHA} \
           --description="Triggered by Cloud Build"
 
