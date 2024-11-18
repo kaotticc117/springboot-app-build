@@ -23,13 +23,12 @@ steps:
         }' > build-artifacts.json
 
         cat build-artifacts.json
-        gcloud deploy releases create springboot-${BUILD_ID} \
+        gcloud deploy releases create springboot-latest \
           --delivery-pipeline=springboot-delivery-pipeline \
           --region=${_REGION} \
           --build-artifacts=build-artifacts.json \
-          --annotations=commitSha=${COMMIT_SHA} \
           --description="Triggered by Cloud Build"
-          
+
 options:
   defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
 
