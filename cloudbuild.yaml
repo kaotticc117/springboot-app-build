@@ -1,11 +1,11 @@
 steps:
-  # Step 1: Build Docker image (use the predefined:latest variable)
+  # Step 1: Build Docker image (use the predefined:${SHORT_SHA} variable)
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/dauntless-tube-441623-h6/springboot-app:latest', '.']
+    args: ['build', '-t', 'gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}', '.']
 
   # Step 2: Push Docker image to Container Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/dauntless-tube-441623-h6/springboot-app:latest']
+    args: ['push', 'gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}']
 
   # Step 3: Create Google Cloud Deploy release
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -13,8 +13,8 @@ steps:
     args:
       - '-c'
       - |
-        echo "Deploying image: gcr.io/dauntless-tube-441623-h6/springboot-app:latest"
-        echo '{"images":[{"image":"gcr.io/dauntless-tube-441623-h6/springboot-app::latest'"}]}' > build-artifacts.json
+        echo "Deploying image: gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}"
+        echo "{\"images\":[{\"image\":\"gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}\"}]}" > build-artifacts.json
         cat build-artifacts.json
         gcloud deploy releases create springboot-${BUILD_ID} \
           --delivery-pipeline=springboot-delivery-pipeline \
