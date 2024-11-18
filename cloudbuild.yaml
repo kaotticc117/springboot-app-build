@@ -16,9 +16,9 @@ steps:
         echo "Deploying image: gcr.io/dauntless-tube-441623-h6/springboot-app:latest"
         cat > build-artifacts.json <<EOF
 {
-  "images"\: [
+  \"images\": [
     {
-      "image"\: "gcr.io/dauntless-tube-441623-h6/springboot-app\:latest"
+      \"image\": "gcr.io/dauntless-tube-441623-h6/springboot-app:latest\"
     }
   ]
 }
