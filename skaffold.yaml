@@ -4,7 +4,7 @@ metadata:
   name: my-app
 build:
   artifacts:
-    - image: gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}  # Replace with your image
+    - image: gcr.io/dauntless-tube-441623-h6/springboot-app  # Replace with your image
 deploy:
   kubectl:
     manifests:
