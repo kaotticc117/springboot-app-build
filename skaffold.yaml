@@ -23,6 +23,7 @@ profiles:
           - deploy/ingress.yaml
         flags:
           apply: ["--prune=false"]
-      patches:
-        - path: spec.template.spec.containers[0].image
-          value: gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}
+    build:
+      artifacts:
+        - image: gcr.io/dauntless-tube-441623-h6/springboot-app
+          tag: gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}
