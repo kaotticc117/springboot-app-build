@@ -13,6 +13,3 @@ deploy:
       - deploy/ingress.yaml
     flags:
       apply: ["--prune=false"]  # Optional: Prevent pruning unrelated resources
-
-profiles:
-  - name: springboot-delivery-pipeline-target-1
