@@ -14,7 +14,7 @@ steps:
       - '-c'
       - |
         echo "Deploying image: gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}"
-        gcloud deploy releases create ${SHORT_SHA} \
+        gcloud deploy releases create k-${SHORT_SHA} \
           --delivery-pipeline=springboot-delivery-pipeline \
           --region=${_REGION} \
           --images="gcr.io/dauntless-tube-441623-h6/springboot-app=gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}" \
