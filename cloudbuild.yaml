@@ -1,9 +1,8 @@
 steps:
   # Step 0: Compile the Spring Boot JAR using Springboot
   - name: 'gcr.io/cloud-builders/gradle'
-  args: ['build', '-x', 'test']
-  dir: '/spring-boot-docker'  # Path to the directory containing `build.gradle`
-
+    args: ['build', '-x', 'test']
+    dir: '/spring-boot-docker'  # Path to the directory containing `build.gradle`
 
   # Step 1: Build Docker image (use the predefined:${SHORT_SHA} variable)
   - name: 'gcr.io/cloud-builders/docker'
