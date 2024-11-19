@@ -4,7 +4,7 @@ metadata:
   name: my-app
 build:
   artifacts:
-    - image: gcr.io/dauntless-tube-441623-h6/springboot-app  # Replace with your image
+    - image: gcr.io/dauntless-tube-441623-h6/springboot-app
 deploy:
   kubectl:
     manifests:
@@ -12,4 +12,17 @@ deploy:
       - deploy/service.yaml
       - deploy/ingress.yaml
     flags:
-      apply: ["--prune=false"]  # Optional: Prevent pruning unrelated resources
+      apply: ["--prune=false"]
+profiles:
+  - name: target-1
+    deploy:
+      kubectl:
+        manifests:
+          - deploy/deployment.yaml
+          - deploy/service.yaml
+          - deploy/ingress.yaml
+        flags:
+          apply: ["--prune=false"]
+      patches:
+        - path: spec.template.spec.containers[0].image
+          value: gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}
