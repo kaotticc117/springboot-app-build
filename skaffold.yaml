@@ -4,7 +4,9 @@ metadata:
   name: my-app
 build:
   artifacts:
-    - image: gcr.io/dauntless-tube-441623-h6/springboot-app
+    - image: gcr.io/dauntless-tube-441623-h6/springboot-app  # Image name
+  tagPolicy:
+    sha256: {}  # Use SHA-256 digest-based tagging for reproducible builds
 deploy:
   kubectl:
     manifests:
@@ -21,9 +23,3 @@ profiles:
           - deploy/deployment.yaml
           - deploy/service.yaml
           - deploy/ingress.yaml
-        flags:
-          apply: ["--prune=false"]
-    build:
-      artifacts:
-        - image: gcr.io/dauntless-tube-441623-h6/springboot-app
-          tag: gcr.io/dauntless-tube-441623-h6/springboot-app:${SHORT_SHA}
