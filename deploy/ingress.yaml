@@ -4,7 +4,7 @@ metadata:
   name: hello-world
 spec:
   rules:
-  - host: deploy.nginx.local
+  - host: gke.nginx.local
     http:
       paths:
       - path: /
