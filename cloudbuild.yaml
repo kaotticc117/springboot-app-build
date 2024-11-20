@@ -2,7 +2,7 @@ steps:
   # Step 0: Compile the Spring Boot JAR using Springboot
   - name: 'gcr.io/cloud-builders/mvn'
     args: ['package', '-DskipTests']  # Adjust the command based on your Maven setup
-    dir: '/spring-boot-docker/'  # Path to the directory containing `pom.xml`
+    dir: 'spring-boot-docker/'  # Path to the directory containing `pom.xml`
 
   # Step 1: Build Docker image (use the predefined:${SHORT_SHA} variable)
   - name: 'gcr.io/cloud-builders/docker'
